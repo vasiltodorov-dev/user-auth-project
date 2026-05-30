@@ -1,0 +1,32 @@
+# Зависимости (Node.js)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Продукционен код (Компилиран TypeScript)
+dist/
+build/
+
+# Тестове и Покритие (Jest)
+coverage/
+.jest/
+
+# Конфиденциални данни (Пароли и ключове за базата данни)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Системни файлове
+.DS_Store
+Thumbs.db
+
+# Настройки на IDE (VS Code)
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
