@@ -1,11 +1,11 @@
 import { IncomingMessage, ServerResponse } from 'http';
+import { registerUser } from './controllers/authController.js';
 
-export function handleRequests(req: IncomingMessage, res: ServerResponse) {
+export async function handleRequests(req: IncomingMessage, res: ServerResponse) {
     const { method, url } = req;
 
     if (url === '/api/register' && method === 'POST') {
-        res.writeHead(201, { 'Content-Type': 'application/json' });
-        return res.end(JSON.stringify({ message: 'Register route hit' }));
+        return await registerUser(req, res);
     }
 
     if (url === '/api/login' && method === 'POST') {

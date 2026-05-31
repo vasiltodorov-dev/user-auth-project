@@ -7,8 +7,17 @@ export async function startServer() {
     try {
         await initDatabase();
 
-        const server = http.createServer((req, res) => {
-            handleRequests(req, res); 
+        const server = http.createServer(async (req, res) => {
+            try {
+                await handleRequests(req, res); // 2. Добавено await
+            } catch (err) {
+                console.error('Критична грешка в сървъра:', err);
+                // Ако нещо се счупи брутално, връщаме 500 на клиента, вместо да зависва заявката
+                if (!res.writableEnded) {
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ message: 'Internal Server Error' }));
+                }
+            }
         });
 
         const port = parseInt(process.env.PORT || '8080', 10);
