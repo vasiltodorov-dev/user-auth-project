@@ -61,19 +61,29 @@ export function validateUpdateUserInput(input: {
   password?: string;
 }) {
   const errors: string[] = [];
-  if(!input.full_name) {
-    errors.push("full_name is required");
-  } else {
-    if (!input.full_name || input.full_name?.trim().length < 2) {
-        errors.push("full_name must be at least 2 characters");
-    }
+
+  if (!input.full_name && !input.password) {
+      errors.push("At least one field (full_name or password) must be provided to update");
+      return errors;
   }
-  if(!input.password) {
-    errors.push("password is required");
-  } else {
-    if (input.password?.length < 8) {
-        errors.push("Password must be at least 8 characters");
-    }
+
+  if (input.full_name !== undefined) {
+      if (input.full_name.trim().length < 2) {
+          errors.push("full_name must be at least 2 characters");
+      }
+      if (input.full_name.length > 100) {
+          errors.push("full_name too long");
+      }
   }
+
+  if (input.password !== undefined) {
+      if (input.password.length < 8) {
+          errors.push("Password must be at least 8 characters");
+      }
+      if (input.password.length > 1000) {
+          errors.push("Password too long");
+      }
+  }
+
   return errors;
 }
