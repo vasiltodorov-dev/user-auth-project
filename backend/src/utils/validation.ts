@@ -41,3 +41,39 @@ export function validateRegistrateUserInput(input: {
   
   return errors;
 }
+
+export function validateLoginUserInput(input: {
+  email?: string;
+  password?: string;
+}) {
+  const errors: string[] = [];
+  if(!input.email) {
+    errors.push("email is required");
+  }
+  if(!input.password) {
+    errors.push("password is required");
+  }
+  return errors;
+}
+
+export function validateUpdateUserInput(input: {
+  full_name?: string;
+  password?: string;
+}) {
+  const errors: string[] = [];
+  if(!input.full_name) {
+    errors.push("full_name is required");
+  } else {
+    if (!input.full_name || input.full_name?.trim().length < 2) {
+        errors.push("full_name must be at least 2 characters");
+    }
+  }
+  if(!input.password) {
+    errors.push("password is required");
+  } else {
+    if (input.password?.length < 8) {
+        errors.push("Password must be at least 8 characters");
+    }
+  }
+  return errors;
+}
